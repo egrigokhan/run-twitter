@@ -15,7 +15,6 @@ from langchain.utilities import SerpAPIWrapper
 from langchain.agents import initialize_agent
 from langchain.agents import AgentType
 
-from lib.tools.index import TwitterTool
 from lib.agents.index import create_agent
 
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)

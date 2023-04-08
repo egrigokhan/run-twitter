@@ -4,7 +4,6 @@ from langchain import LLMChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory, ReadOnlySharedMemory
 import os
-from lib.tools.index import TwitterTool
 from lib.twitter.index import send_tweet
 import json
 

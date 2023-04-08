@@ -5,7 +5,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.tools import BaseTool
 from langchain.utilities import SerpAPIWrapper
-from lib.twitter.index import send_tweet
+from ..twitter.index import send_tweet
 
 class TwitterTool(BaseTool):
     name = "Twitter"
