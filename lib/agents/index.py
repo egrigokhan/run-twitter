@@ -41,12 +41,12 @@ def create_agent(memory):
                     "description": "Do you want to post this tweet?",
                     "options": [
                         {
-                            "name": "Yes",
+                            "title": "Yes",
                             "description": "Post the tweet",
                             "callback": "send_tweet" # lambda x: send_tweet(x, json.loads(os.environ["twitter_auth"])["access_token"])
                         },
                         {
-                            "name": "No",
+                            "title": "No",
                             "description": "Don't post the tweet",
                             "callback": "do not send tweet" # lambda x: "Tweet not approved for posting."
                         }

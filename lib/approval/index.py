@@ -14,6 +14,7 @@ def approve(request, config):
         formatted_options.append(formatted_option)
 
     return {
+        "type": "approval",
         "request": request,
         "title": title,
         "description": description,
