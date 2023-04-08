@@ -1,13 +1,3 @@
-/* 
-def setup(config):
-    os.environ["OPENAI_API_KEY"] = config["OPENAI_API_KEY"]
-    os.environ["name"] = config["name"]
-    os.environ["tagline"] = config["tagline"]
-    os.environ["description"] = config["description"]
-    os.environ["language"] = config["language"]
-    os.environ["twitter_auth"] = config["twitter_auth"]
-*/
-
 {
   "inputs": [
     {
