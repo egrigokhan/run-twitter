@@ -1,5 +1,46 @@
+/* 
+def setup(config):
+    os.environ["OPENAI_API_KEY"] = config["OPENAI_API_KEY"]
+    os.environ["name"] = config["name"]
+    os.environ["tagline"] = config["tagline"]
+    os.environ["description"] = config["description"]
+    os.environ["language"] = config["language"]
+    os.environ["twitter_auth"] = config["twitter_auth"]
+*/
+
 {
   "inputs": [
+    {
+      "key": "OPENAI_API_KEY",
+      "title": "OpenAI API Key",
+      "description": "Your OpenAI API Key",
+      "type": "string",
+      "secure": true
+    },
+    {
+      "key": "name",
+      "title": "Name",
+      "description": "Name of the project",
+      "type": "string"
+    },
+    {
+      "key": "tagline",
+      "title": "Tagline",
+      "description": "Tagline of the project",
+      "type": "string"
+    },
+    {
+      "key": "description",
+      "title": "Description",
+      "description": "Description of the project",
+      "type": "string"
+    },
+    {
+      "key": "language",
+      "title": "Language",
+      "description": "The language specifications for the Tweets (do's and don'ts)",
+      "type": "string"
+    },
     {
       "key": "twitter_auth",
       "title": "Twitter",
@@ -8,8 +49,13 @@
       "authorization_url": "https://twitter.com/i/oauth2/authorize",
       "client_id": "SjliLXRwVnBsOWVQb3BVUm9JTWg6MTpjaQ",
       "client_secret": "2iC08zmJ7o65PyuwuI7hNbhfp4OgS3wEUDu3UuJ_EtKPcHmGgs",
-      "scopes": ["tweet.read", "users.read", "follows.read",
-      "follows.write", "tweet.write"],
+      "scopes": [
+        "tweet.read",
+        "users.read",
+        "follows.read",
+        "follows.write",
+        "tweet.write"
+      ],
       "token_url": "https://api.twitter.com/2/oauth2/token"
     }
   ]
