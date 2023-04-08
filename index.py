@@ -19,8 +19,6 @@ from lib.agents.index import create_agent
 from lib.twitter.index import send_tweet
 import json
 
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-
 def approve(type, request):
     # switch case
     if type == "send_tweet":
@@ -30,8 +28,16 @@ def approve(type, request):
     else:
         return "Error approving."
     
-def run(message, history):    
-    try:    
+def run(message, history): 
+    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+
+    try:
+        memory.chat_memory.clear()
+        memory.chat_memory.messages = history
+    except Exception as e:
+        print(e)   
+    try:
+        # memory.buffer = history
         agent = create_agent(memory)
         
         return agent.run(message)
