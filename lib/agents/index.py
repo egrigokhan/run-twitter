@@ -1,12 +1,23 @@
-from langchain.agents import Tool, AgentExecutor, ZeroShotAgent
-from langchain.prompts import BaseChatPromptTemplate
-from langchain import LLMChain
+import json
+import os
+
+from langchain import LLMChain, OpenAI
+from langchain.agents import AgentExecutor, Tool, ZeroShotAgent
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory, ReadOnlySharedMemory
-import os
-from lib.twitter.index import send_tweet
-import json
+from langchain.prompts import BaseChatPromptTemplate
+
 from lib.approval.index import approve
+from lib.twitter.index import send_tweet
+
+
+def iterate_on_tweet(tweet, changes):
+    from langchain import PromptTemplate
+
+    chain = OpenAI()
+
+    return chain("Iterate on the following Tweet suggestion: " + tweet + " and apply [" + ", ".join(changes) + "] Updated Tweet suggestion: ")
+
 
 def fix_json_string(input_str):
     # Replace single quotes with double quotes
@@ -29,8 +40,9 @@ def create_agent(memory):
         ),
         Tool(
             name="Iterate Tweet",
-            func=lambda x: f"iteration objective: the user asked me to apply [" + ", ".join((fix_json_string(x))["changes"]) + "] to "  + (fix_json_string(x))["text"] + " and then show it to them",
-            description='refine the latest tweet suggestion according to the users feedback. input format: json dict with "text": string, "changes": [string].',
+            func=lambda x: iterate_on_tweet((fix_json_string(x))["text"], (fix_json_string(x))["changes"]), # f"iteration objective: the user asked me to apply [" + ", ".join((fix_json_string(x))["changes"]) + "] to "  + (fix_json_string(x))["text"] + " and then show it to him",
+            description='refine the latest tweet suggestion according to the users feedback. input format: json dict with "text": string, "changes": [string], output format: json dict with "text": string',
+            return_direct=True
         ),
         Tool(
             name="Post Tweet",
@@ -48,7 +60,7 @@ def create_agent(memory):
                         {
                             "title": "No",
                             "description": "Don't post the tweet",
-                            "callback": "do not send tweet" # lambda x: "Tweet not approved for posting."
+                            "callback": "dont_send_tweet" # lambda x: "Tweet not approved for posting."
                         }
                     ]
                 }
@@ -101,8 +113,8 @@ Question: {{input}}
     )
 
     llm_chain = LLMChain(llm=ChatOpenAI(temperature=0.1), prompt=prompt)
-    agent = ZeroShotAgent(llm_chain=llm_chain, tools=tools, verbose=False)
+    agent = ZeroShotAgent(llm_chain=llm_chain, tools=tools, verbose=True)
 
-    agent_chain = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=False, memory=memory)
+    agent_chain = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True, memory=memory)
 
     return agent_chain
