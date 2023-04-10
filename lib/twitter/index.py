@@ -36,7 +36,7 @@ def send_tweet(msg, access_token):
         data = response.json()
         
         if data['data']['id'] is not None:
-            return f"Tweet sent successfully! Check it at https://twitter.com/{user_handle}/status/{data['data']['id']}."
+            return f"Tweet sent successfully! Check it at https://twitter.com/{user_handle}/status/{data['data']['id']}"
         else:
             return "Tweet failed to send."
     except Exception as e:

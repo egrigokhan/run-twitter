@@ -50,7 +50,7 @@ def create_agent(memory):
                 json.loads(x),
                 {
                     "title": "Post Tweet",
-                    "description": "Do you want to post this tweet?",
+                    "description": f'Do you want to post "{json.loads(x)["tweet"]}" to Twitter?',
                     "options": [
                         {
                             "title": "Yes",
