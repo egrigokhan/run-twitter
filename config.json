@@ -44,7 +44,8 @@
         "users.read",
         "follows.read",
         "follows.write",
-        "tweet.write"
+        "tweet.write",
+        "offline.access"
       ],
       "token_url": "https://api.twitter.com/2/oauth2/token"
     }
